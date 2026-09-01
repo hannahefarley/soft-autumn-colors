@@ -1,0 +1,593 @@
+<title>Hannah's Soft Autumn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Karla:wght@400;500;600;700&display=swap">
+
+<style>
+  :root {
+    /* light — warm oat paper */
+    --paper: #EFE7D8;
+    --surface: #FBF6EC;
+    --surface-2: #F4ECDC;
+    --ink: #3A2E23;
+    --ink-soft: #6E5E4C;
+    --ink-faint: #9A8A74;
+    --line: #E0D3BC;
+    --line-strong: #CDBB9E;
+    --accent: #B5673F;      /* terracotta */
+    --accent-deep: #8F4E2C;
+    --sage: #8B8A6E;
+    --shadow: 0 1px 2px rgba(58,46,35,.06), 0 8px 24px rgba(58,46,35,.08);
+    --shadow-lift: 0 2px 6px rgba(58,46,35,.10), 0 18px 40px rgba(58,46,35,.16);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #241C15;
+      --surface: #2E251C;
+      --surface-2: #352A20;
+      --ink: #EDE3D2;
+      --ink-soft: #C3B49C;
+      --ink-faint: #8C7C66;
+      --line: #3E3225;
+      --line-strong: #50412F;
+      --accent: #D68A5F;
+      --accent-deep: #E0A17C;
+      --sage: #A6A487;
+      --shadow: 0 1px 2px rgba(0,0,0,.20), 0 8px 24px rgba(0,0,0,.30);
+      --shadow-lift: 0 2px 6px rgba(0,0,0,.28), 0 18px 40px rgba(0,0,0,.44);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #241C15;
+    --surface: #2E251C;
+    --surface-2: #352A20;
+    --ink: #EDE3D2;
+    --ink-soft: #C3B49C;
+    --ink-faint: #8C7C66;
+    --line: #3E3225;
+    --line-strong: #50412F;
+    --accent: #D68A5F;
+    --accent-deep: #E0A17C;
+    --sage: #A6A487;
+    --shadow: 0 1px 2px rgba(0,0,0,.20), 0 8px 24px rgba(0,0,0,.30);
+    --shadow-lift: 0 2px 6px rgba(0,0,0,.28), 0 18px 40px rgba(0,0,0,.44);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Karla", ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 18px 96px; }
+
+  /* ---- top bar ---- */
+  .topbar {
+    position: sticky; top: 0; z-index: 40;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+    padding: 12px 18px;
+    background: color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    max-width: 720px; margin: 0 auto;
+  }
+  .brandmark { display: flex; align-items: baseline; gap: 9px; font-family: "Fraunces", serif; }
+  .brandmark b { font-weight: 600; font-size: 1.02rem; letter-spacing: .01em; }
+  .brandmark span { font-size: .74rem; color: var(--ink-faint); letter-spacing: .14em; text-transform: uppercase; font-family: "Karla", sans-serif; }
+  .topbtns { display: flex; gap: 8px; }
+  .iconbtn {
+    appearance: none; border: 1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink-soft); width: 40px; height: 40px; border-radius: 999px;
+    font-size: 1.05rem; cursor: pointer; display: grid; place-items: center;
+    transition: transform .12s ease, background .2s ease, color .2s ease;
+  }
+  .iconbtn:hover { transform: translateY(-1px); color: var(--accent); }
+  .iconbtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .iconbtn.on { background: var(--accent); color: #fff; border-color: transparent; }
+
+  /* ---- hero / identity ---- */
+  header.hero { padding: 40px 0 26px; }
+  .eyebrow {
+    font-size: .72rem; letter-spacing: .26em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700; margin: 0 0 14px;
+  }
+  h1.season {
+    font-family: "Fraunces", serif; font-weight: 500;
+    font-size: clamp(2.9rem, 11vw, 4.6rem); line-height: .96;
+    margin: 0; letter-spacing: -.015em; text-wrap: balance;
+  }
+  h1.season em { font-style: italic; color: var(--accent); }
+  .essence {
+    font-family: "Fraunces", serif; font-style: italic; font-weight: 400;
+    font-size: clamp(1.05rem, 3.4vw, 1.3rem); color: var(--ink-soft);
+    margin: 18px 0 0; max-width: 34em; line-height: 1.4;
+  }
+  .diag { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .diag .chip {
+    display: flex; flex-direction: column; gap: 1px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 13px; padding: 9px 14px; box-shadow: var(--shadow);
+  }
+  .diag .chip small { font-size: .64rem; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-faint); }
+  .diag .chip b { font-size: .94rem; font-weight: 600; }
+
+  /* ---- section scaffolding ---- */
+  section { margin-top: 44px; scroll-margin-top: 72px; }
+  .sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+  .sec-head h2 {
+    font-family: "Fraunces", serif; font-weight: 500;
+    font-size: 1.6rem; margin: 0; letter-spacing: -.01em;
+  }
+  .sec-head .count { font-size: .8rem; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+  .sec-sub { color: var(--ink-soft); font-size: .92rem; margin: 6px 0 20px; max-width: 46em; }
+
+  .family-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: .74rem; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 700; margin: 26px 0 12px;
+  }
+  .family-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  /* ---- swatch grid ---- */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (min-width: 520px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .sw {
+    position: relative; border: none; text-align: left; cursor: pointer;
+    border-radius: 16px; overflow: hidden; padding: 0;
+    background: var(--surface); box-shadow: var(--shadow); color: inherit;
+    font-family: inherit; transition: transform .13s ease, box-shadow .2s ease;
+  }
+  .sw:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+  .sw:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .sw .chipcolor { height: 92px; width: 100%; display: block; position: relative; }
+  .sw.big .chipcolor { height: 118px; }
+  .sw .meta { padding: 10px 12px 12px; }
+  .sw .nm { font-weight: 600; font-size: .92rem; line-height: 1.2; }
+  .sw .hx {
+    font-size: .74rem; color: var(--ink-faint); letter-spacing: .04em;
+    font-variant-numeric: tabular-nums; text-transform: uppercase; margin-top: 2px;
+  }
+  .sw .note { font-size: .72rem; color: var(--ink-soft); margin-top: 5px; line-height: 1.3; }
+  .tag {
+    position: absolute; top: 9px; left: 9px;
+    font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 999px; backdrop-filter: blur(4px);
+  }
+  .star {
+    position: absolute; top: 7px; right: 7px; width: 30px; height: 30px;
+    display: grid; place-items: center; border-radius: 999px; cursor: pointer;
+    background: rgba(255,255,255,.18); backdrop-filter: blur(4px);
+    font-size: .95rem; line-height: 1; transition: transform .12s ease;
+    border: none; color: rgba(255,255,255,.9);
+  }
+  .star:hover { transform: scale(1.15); }
+  .star.faved { color: #F4C25A; text-shadow: 0 1px 3px rgba(0,0,0,.4); }
+
+  /* copy flash */
+  .sw.copied .chipcolor::after {
+    content: "Copied ✓"; position: absolute; inset: 0; display: grid; place-items: center;
+    background: rgba(30,22,14,.62); color: #fff; font-weight: 700; font-size: .8rem;
+    letter-spacing: .04em; animation: fade 1s ease;
+  }
+  @keyframes fade { 0%{opacity:0} 15%{opacity:1} 70%{opacity:1} 100%{opacity:0} }
+
+  /* ---- makeup ---- */
+  .mk-row { display: grid; gap: 12px; }
+  .mk-card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+    padding: 16px 16px 18px; box-shadow: var(--shadow);
+  }
+  .mk-card h3 { margin: 0 0 3px; font-family: "Fraunces", serif; font-weight: 600; font-size: 1.12rem; }
+  .mk-card .lead { font-size: .86rem; color: var(--ink-soft); margin: 0 0 12px; }
+  .dots { display: flex; flex-wrap: wrap; gap: 8px; }
+  .dot {
+    display: flex; align-items: center; gap: 8px; cursor: pointer;
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 12px 5px 6px; font-size: .8rem; font-weight: 500; color: var(--ink);
+    transition: transform .12s ease, border-color .2s ease; font-family: inherit;
+  }
+  .dot:hover { transform: translateY(-1px); border-color: var(--line-strong); }
+  .dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .dot .sq { width: 22px; height: 22px; border-radius: 7px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); flex: none; }
+  .dot.copied { border-color: var(--accent); }
+  .dot .power { font-size: .6rem; color: var(--accent); font-weight: 700; letter-spacing: .06em; }
+
+  /* ---- skip ---- */
+  .skip-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (min-width: 520px) { .skip-grid { grid-template-columns: repeat(3, 1fr); } }
+  .skip {
+    display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  }
+  .skip .sq { width: 30px; height: 30px; border-radius: 8px; flex: none; position: relative; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+  .skip .sq::after {
+    content: ""; position: absolute; inset: 0; border-radius: 8px;
+    background: linear-gradient(to top left, transparent 46%, rgba(180,40,20,.9) 46%, rgba(180,40,20,.9) 54%, transparent 54%);
+  }
+  .skip .txt { line-height: 1.2; }
+  .skip .txt b { font-size: .82rem; font-weight: 600; display: block; }
+  .skip .txt small { font-size: .7rem; color: var(--ink-soft); }
+
+  /* ---- how to use ---- */
+  .tips { display: grid; gap: 10px; counter-reset: tip; }
+  .tip {
+    display: flex; gap: 13px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px;
+  }
+  .tip::before {
+    counter-increment: tip; content: counter(tip);
+    font-family: "Fraunces", serif; font-weight: 600; font-size: 1.1rem;
+    color: var(--accent); background: var(--surface-2);
+    width: 34px; height: 34px; border-radius: 999px; flex: none;
+    display: grid; place-items: center;
+  }
+  .tip p { margin: 0; font-size: .9rem; }
+  .tip p b { font-weight: 700; }
+
+  footer { margin-top: 54px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: .78rem; text-align: center; line-height: 1.6; }
+
+  /* favorites empty note */
+  #favEmpty { color: var(--ink-faint); font-size: .88rem; font-style: italic; padding: 6px 2px; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: var(--paper); padding: 11px 18px; border-radius: 999px;
+    font-size: .84rem; font-weight: 600; box-shadow: var(--shadow-lift);
+    opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 80;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast .tsw { width: 16px; height: 16px; border-radius: 5px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="topbar">
+  <div class="brandmark"><b>Soft Autumn</b><span>Hannah</span></div>
+  <div class="topbtns">
+    <button class="iconbtn" id="favBtn" title="Show only my saved colors" aria-label="Show only saved colors">★</button>
+    <button class="iconbtn" id="themeBtn" title="Toggle light / dark" aria-label="Toggle theme">◐</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Personal Colour Analysis</p>
+    <h1 class="season">You're a <em>Soft&nbsp;Autumn</em></h1>
+    <p class="essence">Warm, but whispered. Your colouring is gently golden and low-contrast, so it glows in muted, sun-warmed earth tones — and gets overpowered by anything icy, stark, or electric. Think dried-flower, not neon.</p>
+    <div class="diag">
+      <div class="chip"><small>Undertone</small><b>Warm-neutral</b></div>
+      <div class="chip"><small>Depth</small><b>Medium-light</b></div>
+      <div class="chip"><small>Chroma</small><b>Soft / muted</b></div>
+      <div class="chip"><small>Contrast</small><b>Low, blended</b></div>
+      <div class="chip"><small>Best metal</small><b>Antique gold</b></div>
+    </div>
+  </header>
+
+  <section id="heroes">
+    <div class="sec-head"><h2>Your signature colours</h2></div>
+    <p class="sec-sub">If you remember nothing else in the store, remember these six. They're the truest match to your natural colouring — safe to buy on sight.</p>
+    <div class="grid" id="heroGrid"></div>
+  </section>
+
+  <section id="palette">
+    <div class="sec-head"><h2>The full wardrobe palette</h2><span class="count" id="palCount"></span></div>
+    <p class="sec-sub">Tap any swatch to copy its hex code — screenshot the code or paste it into a shopping search. Tap the ★ to save a colour to your picks.</p>
+    <div id="palette-body"></div>
+  </section>
+
+  <section id="makeup">
+    <div class="sec-head"><h2>Makeup map</h2></div>
+    <p class="sec-sub">Your face is soft and warm, so cosmetics should melt in rather than sit on top. Warm-toned, medium-depth, never ashy or blue-based. Tap any shade to copy it.</p>
+    <div class="mk-row" id="makeupBody"></div>
+  </section>
+
+  <section id="skip">
+    <div class="sec-head"><h2>Kindly skip</h2></div>
+    <p class="sec-sub">Not "bad" colours — just ones that fight your softness and drain your face. If a piece is one of these, put it back (or keep it far from your face — a handbag or shoe is fine).</p>
+    <div class="skip-grid" id="skipBody"></div>
+  </section>
+
+  <section id="how">
+    <div class="sec-head"><h2>Using this in the store</h2></div>
+    <div class="tips">
+      <div class="tip"><p><b>Hold it to your jaw</b> in natural light near a window. Your right colour makes skin look clear and lifted; a wrong one casts grey or makes blemishes pop.</p></div>
+      <div class="tip"><p><b>Match the mood, not just the hex.</b> Everything here is muted and warm. A colour that looks "dusty," "toasted," or "sun-faded" is usually yours; anything "bright," "icy," or "jewel" usually isn't.</p></div>
+      <div class="tip"><p><b>Build outfits from your neutrals</b> — camel, cocoa, oat, soft olive — then add one spice or berry as the star. Skip black and stark white; reach for espresso and warm ivory instead.</p></div>
+      <div class="tip"><p><b>For makeup, undertone beats shade name.</b> Test foundation on your jaw in daylight and pick the one that disappears. Warm/golden or neutral — never pink or grey.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    Built from your six photos · Soft Autumn (warm-neutral · muted · medium-light)<br>
+    Your saved picks live on this device — bookmark this page and it'll remember them.
+  </footer>
+</div>
+
+<div class="toast" id="toast"><span class="tsw" id="toastSw"></span><span id="toastMsg">Copied</span></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------- DATA ---------------- */
+  const heroes = [
+    { n: "Terracotta",   h: "#C06A45", note: "Your power colour — earthy, alive, unmistakably you." },
+    { n: "Camel",        h: "#B98A5E", note: "The perfect warm neutral base for anything." },
+    { n: "Sage",         h: "#97A07C", note: "Soft green that flatters your eyes." },
+    { n: "Muted Teal",   h: "#4F817B", note: "Your best cool-side colour — calm, not icy." },
+    { n: "Warm Rose",    h: "#C68477", note: "A soft rosy blush tone that lights the face." },
+    { n: "Soft Gold",    h: "#C9A14C", note: "Wears like jewellery — glowy and warm." },
+  ];
+
+  const families = [
+    { label: "Neutrals — build from these", items: [
+      { n: "Warm Ivory",  h: "#EFE3CE", note: "Your white. Wear instead of stark white." },
+      { n: "Oat",         h: "#DAC8A8" },
+      { n: "Camel",       h: "#B98A5E" },
+      { n: "Warm Taupe",  h: "#9C846A" },
+      { n: "Soft Stone",  h: "#928C78", note: "Grey with a warm green cast — your grey." },
+      { n: "Cocoa",       h: "#6E5442" },
+      { n: "Espresso",    h: "#47372B", note: "Your black. Deep, warm, softer on the face." },
+    ]},
+    { label: "Earth & spice", items: [
+      { n: "Terracotta",   h: "#C06A45" },
+      { n: "Cinnamon",     h: "#A5542F" },
+      { n: "Pumpkin",      h: "#C67B3E" },
+      { n: "Brick Red",    h: "#A8432F", note: "Confirmed gorgeous on you in daylight." },
+      { n: "Warm Salmon",  h: "#E0906E" },
+      { n: "Golden Ochre", h: "#C89A3C" },
+    ]},
+    { label: "Greens", items: [
+      { n: "Sage",        h: "#97A07C" },
+      { n: "Olive Moss",  h: "#77713E" },
+      { n: "Fern",        h: "#6C7A4A" },
+      { n: "Muted Jade",  h: "#5E8B79" },
+    ]},
+    { label: "Blues & teals — your cool corner", items: [
+      { n: "Muted Teal",  h: "#4F817B" },
+      { n: "Teal Grey",   h: "#5E7C7C" },
+      { n: "Dusty Denim", h: "#6E8595" },
+      { n: "Slate Blue",  h: "#55707E" },
+    ]},
+    { label: "Berry & rose", items: [
+      { n: "Warm Rose",     h: "#C68477" },
+      { n: "Dusty Rose",    h: "#BF7E77" },
+      { n: "Soft Raspberry",h: "#A85558" },
+      { n: "Muted Plum",    h: "#86596B" },
+      { n: "Mauve",         h: "#9A7684" },
+    ]},
+    { label: "Golds & warm yellows", items: [
+      { n: "Soft Gold",     h: "#C9A14C" },
+      { n: "Honey Mustard", h: "#C79A3E" },
+      { n: "Amber",         h: "#CC8A3E" },
+      { n: "Buttercream",   h: "#E7CE8B" },
+    ]},
+  ];
+
+  const makeup = [
+    { title: "Foundation & base", lead: "Warm-golden or neutral undertone — the shade that vanishes on your jaw. Avoid pink/rosy and grey-olive bases.", shades: [
+      { n: "Warm beige", h: "#D9B48C" },
+      { n: "Golden neutral", h: "#CDA073" },
+    ]},
+    { title: "Blush", lead: "Warm peach through soft terracotta — a just-came-in-from-a-walk flush.", shades: [
+      { n: "Warm Peach", h: "#E39A7C" },
+      { n: "Soft Coral", h: "#E08A6E" },
+      { n: "Terracotta", h: "#C06A4E" },
+      { n: "Warm Rose",  h: "#C97F72" },
+    ]},
+    { title: "Lips", lead: "Rose-nudes and warm spice for every day; brick red is your standout.", shades: [
+      { n: "Rose Nude", h: "#C68A78" },
+      { n: "Warm Peach", h: "#E08A6C" },
+      { n: "Terracotta", h: "#BC6247" },
+      { n: "Brick Red", h: "#B04A38", power: true },
+      { n: "Warm Mauve", h: "#B27A72" },
+    ]},
+    { title: "Eyes", lead: "Warm browns, bronze, copper and olive make grey-blue eyes read brighter. Skip cool grey & icy silver.", shades: [
+      { n: "Warm Bronze", h: "#9A6B45" },
+      { n: "Copper",      h: "#A66A45" },
+      { n: "Golden Taupe",h: "#A28A6A" },
+      { n: "Soft Olive",  h: "#7C744C" },
+      { n: "Warm Plum",   h: "#7E5A62" },
+      { n: "Cream lid",   h: "#EAD9B8" },
+    ]},
+    { title: "Liner & lash", lead: "Soften the frame — brown-black over jet black, or lean into colour.", shades: [
+      { n: "Espresso", h: "#47372B" },
+      { n: "Bronze",   h: "#8A5E3C" },
+      { n: "Deep Olive", h: "#5C5636" },
+    ]},
+    { title: "Metals & jewellery", lead: "Gold family wins. Antique / brushed finishes over high-shine.", shades: [
+      { n: "Antique Gold", h: "#C2A24E" },
+      { n: "Rose Gold",    h: "#C98F76" },
+      { n: "Bronze",       h: "#A6784B" },
+    ]},
+  ];
+
+  const skip = [
+    { n: "Pure black",     h: "#111111", swap: "wear Espresso" },
+    { n: "Stark white",    h: "#FFFFFF", swap: "wear Warm Ivory" },
+    { n: "Icy pink",       h: "#F6C6D6", swap: "wear Warm Rose" },
+    { n: "Icy blue",       h: "#BFE0EE", swap: "wear Dusty Denim" },
+    { n: "Fuchsia",        h: "#C21B7A", swap: "wear Soft Raspberry" },
+    { n: "Electric cobalt",h: "#1F4FD8", swap: "wear Slate Blue" },
+    { n: "Emerald",        h: "#0E8A4F", swap: "wear Muted Jade" },
+    { n: "Cool burgundy",  h: "#5A1030", swap: "wear Brick Red" },
+    { n: "Ash grey",       h: "#9AA0A6", swap: "wear Soft Stone" },
+  ];
+
+  /* ---------------- HELPERS ---------------- */
+  const $ = (s, r) => (r || document).querySelector(s);
+  const store = {
+    get() { try { return JSON.parse(localStorage.getItem("sa_favs") || "[]"); } catch (e) { return []; } },
+    set(v) { try { localStorage.setItem("sa_favs", JSON.stringify(v)); } catch (e) {} },
+  };
+  let favs = store.get();
+  let favOnly = false;
+
+  function textOn(hex) {
+    const c = hex.replace("#", "");
+    const r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
+    const L = (0.299*r + 0.587*g + 0.114*b) / 255;
+    return L > 0.62 ? "#2A2118" : "#FBF6EC";
+  }
+
+  const toast = $("#toast"), toastMsg = $("#toastMsg"), toastSw = $("#toastSw");
+  let toastT;
+  function flash(msg, hex) {
+    toastMsg.textContent = msg;
+    if (hex) { toastSw.style.background = hex; toastSw.style.display = ""; } else { toastSw.style.display = "none"; }
+    toast.classList.add("show");
+    clearTimeout(toastT);
+    toastT = setTimeout(() => toast.classList.remove("show"), 1500);
+  }
+  function copy(hex) {
+    const t = hex.toUpperCase();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t).catch(() => {});
+    } else {
+      const ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta);
+      ta.select(); try { document.execCommand("copy"); } catch (e) {} document.body.removeChild(ta);
+    }
+    flash("Copied " + t, hex);
+  }
+
+  /* ---------------- RENDER: swatches ---------------- */
+  function swatch(item, big) {
+    const el = document.createElement("button");
+    el.className = "sw" + (big ? " big" : "");
+    el.setAttribute("data-hex", item.h);
+    el.setAttribute("aria-label", item.n + " " + item.h + ", tap to copy hex");
+    const txt = textOn(item.h);
+    const faved = favs.indexOf(item.h) > -1;
+    el.innerHTML =
+      '<span class="chipcolor" style="background:' + item.h + '">' +
+        (item.note && big ? '<span class="tag" style="background:rgba(255,255,255,.22);color:' + txt + '">signature</span>' : '') +
+        '<span class="star' + (faved ? ' faved' : '') + '" role="button" tabindex="0" aria-label="Save ' + item.n + '">' + (faved ? '★' : '☆') + '</span>' +
+      '</span>' +
+      '<span class="meta">' +
+        '<span class="nm">' + item.n + '</span>' +
+        '<span class="hx">' + item.h.toUpperCase() + '</span>' +
+        (item.note ? '<span class="note">' + item.note + '</span>' : '') +
+      '</span>';
+
+    el.addEventListener("click", (e) => {
+      if (e.target.closest(".star")) return;
+      copy(item.h);
+      el.classList.add("copied");
+      setTimeout(() => el.classList.remove("copied"), 1000);
+    });
+    const star = $(".star", el);
+    const toggle = (e) => {
+      e.stopPropagation(); e.preventDefault();
+      const i = favs.indexOf(item.h);
+      if (i > -1) { favs.splice(i, 1); flash("Removed from picks"); }
+      else { favs.push(item.h); flash("Saved to picks ★", item.h); }
+      store.set(favs);
+      renderAll();
+    };
+    star.addEventListener("click", toggle);
+    star.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") toggle(e); });
+    return el;
+  }
+
+  function renderHeroes() {
+    const g = $("#heroGrid"); g.innerHTML = "";
+    heroes.filter(showItem).forEach(it => g.appendChild(swatch(it, true)));
+  }
+
+  function showItem(it) { return !favOnly || favs.indexOf(it.h) > -1; }
+
+  function renderPalette() {
+    const body = $("#palette-body"); body.innerHTML = "";
+    let shown = 0, total = 0;
+    families.forEach(fam => {
+      const items = fam.items.filter(showItem);
+      total += fam.items.length;
+      if (!items.length) return;
+      shown += items.length;
+      const lab = document.createElement("div");
+      lab.className = "family-label"; lab.textContent = fam.label;
+      body.appendChild(lab);
+      const grid = document.createElement("div"); grid.className = "grid";
+      items.forEach(it => grid.appendChild(swatch(it, false)));
+      body.appendChild(grid);
+    });
+    $("#palCount").textContent = favOnly ? shown + " saved" : total + " colours";
+    if (favOnly && shown === 0 && heroes.filter(showItem).length === 0) {
+      const p = document.createElement("p"); p.id = "favEmpty";
+      p.textContent = "No saved colours yet — tap the ★ on any swatch to build your shopping shortlist.";
+      body.appendChild(p);
+    }
+  }
+
+  /* ---------------- RENDER: makeup ---------------- */
+  function renderMakeup() {
+    const body = $("#makeupBody"); body.innerHTML = "";
+    makeup.forEach(cat => {
+      const card = document.createElement("div"); card.className = "mk-card";
+      let dots = '<div class="dots">';
+      cat.shades.forEach(s => {
+        dots += '<button class="dot" data-hex="' + s.h + '" aria-label="' + s.n + ' ' + s.h + ', tap to copy">' +
+          '<span class="sq" style="background:' + s.h + '"></span>' +
+          '<span>' + s.n + (s.power ? ' <span class="power">★ standout</span>' : '') + '</span></button>';
+      });
+      dots += '</div>';
+      card.innerHTML = '<h3>' + cat.title + '</h3><p class="lead">' + cat.lead + '</p>' + dots;
+      body.appendChild(card);
+    });
+    body.querySelectorAll(".dot").forEach(d => {
+      d.addEventListener("click", () => {
+        copy(d.getAttribute("data-hex"));
+        d.classList.add("copied"); setTimeout(() => d.classList.remove("copied"), 900);
+      });
+    });
+  }
+
+  /* ---------------- RENDER: skip ---------------- */
+  function renderSkip() {
+    const body = $("#skipBody"); body.innerHTML = "";
+    skip.forEach(s => {
+      const el = document.createElement("div"); el.className = "skip";
+      el.innerHTML = '<span class="sq" style="background:' + s.h + '"></span>' +
+        '<span class="txt"><b>' + s.n + '</b><small>' + s.swap + '</small></span>';
+      body.appendChild(el);
+    });
+  }
+
+  function renderAll() { renderHeroes(); renderPalette(); }
+
+  /* ---------------- CONTROLS ---------------- */
+  const themeBtn = $("#themeBtn");
+  function currentTheme() { return document.documentElement.getAttribute("data-theme"); }
+  (function initTheme(){ try { const t = localStorage.getItem("sa_theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch(e){} })();
+  themeBtn.addEventListener("click", () => {
+    const isDark = currentTheme() === "dark" ||
+      (!currentTheme() && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const next = isDark ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("sa_theme", next); } catch(e){}
+  });
+
+  const favBtn = $("#favBtn");
+  favBtn.addEventListener("click", () => {
+    favOnly = !favOnly;
+    favBtn.classList.toggle("on", favOnly);
+    favBtn.setAttribute("title", favOnly ? "Show all colours" : "Show only my saved colors");
+    document.getElementById(favOnly ? "heroes" : "heroes").scrollIntoView({ behavior: "smooth", block: "start" });
+    renderAll();
+  });
+
+  /* ---------------- INIT ---------------- */
+  renderMakeup();
+  renderSkip();
+  renderAll();
+})();
+</script>
