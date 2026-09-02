@@ -1,6 +1,6 @@
 /* Service worker — caches the tool so it works with no internet.
    Bump the version number below whenever you change the site to force a refresh. */
-const CACHE = "soft-autumn-v1";
+const CACHE = "soft-autumn-v2";
 
 const ASSETS = [
   "./",
