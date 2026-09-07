@@ -1,0 +1,594 @@
+<title>Outfit Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Karla:wght@400;500;600;700&display=swap">
+
+<style>
+  :root {
+    --paper:#EFE7D8; --surface:#FBF6EC; --surface-2:#F4ECDC;
+    --ink:#3A2E23; --ink-soft:#6E5E4C; --ink-faint:#9A8A74;
+    --line:#E0D3BC; --line-strong:#CDBB9E;
+    --accent:#B5673F; --accent-deep:#8F4E2C; --sage:#8B8A6E;
+    --good:#6E7B4F; --shadow:0 1px 2px rgba(58,46,35,.06),0 8px 24px rgba(58,46,35,.08);
+    --shadow-lift:0 2px 6px rgba(58,46,35,.10),0 18px 40px rgba(58,46,35,.16);
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --paper:#241C15; --surface:#2E251C; --surface-2:#352A20;
+    --ink:#EDE3D2; --ink-soft:#C3B49C; --ink-faint:#8C7C66;
+    --line:#3E3225; --line-strong:#50412F;
+    --accent:#D68A5F; --accent-deep:#E0A17C; --sage:#A6A487; --good:#9FAe78;
+    --shadow:0 1px 2px rgba(0,0,0,.2),0 8px 24px rgba(0,0,0,.3);
+    --shadow-lift:0 2px 6px rgba(0,0,0,.28),0 18px 40px rgba(0,0,0,.44);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#241C15; --surface:#2E251C; --surface-2:#352A20;
+    --ink:#EDE3D2; --ink-soft:#C3B49C; --ink-faint:#8C7C66;
+    --line:#3E3225; --line-strong:#50412F;
+    --accent:#D68A5F; --accent-deep:#E0A17C; --sage:#A6A487; --good:#9FAe78;
+    --shadow:0 1px 2px rgba(0,0,0,.2),0 8px 24px rgba(0,0,0,.3);
+    --shadow-lift:0 2px 6px rgba(0,0,0,.28),0 18px 40px rgba(0,0,0,.44);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Karla",ui-sans-serif,system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px;margin:0 auto;padding:0 18px 100px}
+
+  .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:12px 18px;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);max-width:720px;margin:0 auto}
+  .brandmark{display:flex;align-items:baseline;gap:9px;font-family:"Fraunces",serif}
+  .brandmark b{font-weight:600;font-size:1.02rem}
+  .brandmark span{font-size:.72rem;color:var(--ink-faint);letter-spacing:.14em;text-transform:uppercase;font-family:"Karla",sans-serif}
+  .iconbtn{appearance:none;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);
+    width:40px;height:40px;border-radius:999px;font-size:1.05rem;cursor:pointer;display:grid;place-items:center;transition:.15s}
+  .iconbtn:hover{transform:translateY(-1px);color:var(--accent)}
+  .iconbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  header.hero{padding:34px 0 8px}
+  .eyebrow{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 12px}
+  h1{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(2.4rem,9vw,3.6rem);line-height:1;margin:0;letter-spacing:-.015em}
+  h1 em{font-style:italic;color:var(--accent)}
+  .sub{color:var(--ink-soft);margin:14px 0 0;max-width:40em}
+
+  /* tabs */
+  .tabs{display:flex;gap:6px;margin:24px 0 0;flex-wrap:wrap}
+  .tab{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);
+    font-family:inherit;font-size:.9rem;font-weight:600;padding:9px 16px;border-radius:999px;cursor:pointer;transition:.15s}
+  .tab:hover{border-color:var(--line-strong)}
+  .tab.active{background:var(--accent);color:#fff;border-color:transparent}
+  .tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  section.panel{margin-top:24px}
+  .panel[hidden]{display:none}
+
+  /* generator */
+  .gen-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+  .seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px}
+  .seg button{appearance:none;border:none;background:transparent;color:var(--ink-soft);font-family:inherit;
+    font-size:.82rem;font-weight:600;padding:6px 14px;border-radius:999px;cursor:pointer;transition:.15s}
+  .seg button.on{background:var(--accent);color:#fff}
+  .bigbtn{appearance:none;border:none;background:var(--accent);color:#fff;font-family:"Fraunces",serif;font-weight:600;
+    font-size:1.05rem;padding:13px 22px;border-radius:14px;cursor:pointer;box-shadow:var(--shadow);transition:.15s;flex:1;min-width:200px}
+  .bigbtn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+  .bigbtn:active{transform:translateY(0)}
+
+  .outfit{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+  .outfit .why{font-family:"Fraunces",serif;font-style:italic;font-size:1.02rem;color:var(--ink-soft);margin:0 0 14px;line-height:1.4}
+  .piece-row{display:flex;align-items:center;gap:13px;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .piece-row:last-child{border-bottom:none}
+  .pc-sw{width:38px;height:38px;border-radius:10px;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.10)}
+  .pc-meta{flex:1;min-width:0}
+  .pc-cat{font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+  .pc-name{font-size:.98rem;font-weight:600;line-height:1.2}
+  .pc-color{font-size:.76rem;color:var(--ink-soft)}
+  .outfit-actions{display:flex;gap:10px;margin-top:16px}
+  .oa{appearance:none;border:1px solid var(--line-strong);background:var(--surface-2);color:var(--ink);font-family:inherit;
+    font-weight:600;font-size:.88rem;padding:10px 16px;border-radius:11px;cursor:pointer;transition:.15s;flex:1}
+  .oa:hover{border-color:var(--accent);color:var(--accent)}
+  .oa.primary{background:var(--accent);color:#fff;border-color:transparent}
+  .empty{color:var(--ink-faint);font-style:italic;padding:24px;text-align:center;border:1px dashed var(--line-strong);border-radius:16px}
+
+  /* closet */
+  .additem{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow);margin-bottom:20px}
+  .additem h3{margin:0 0 12px;font-family:"Fraunces",serif;font-weight:600;font-size:1.1rem}
+  .frow{display:flex;flex-wrap:wrap;gap:10px}
+  .field{display:flex;flex-direction:column;gap:4px;flex:1;min-width:120px}
+  .field label{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+  .field input,.field select{font-family:inherit;font-size:.92rem;padding:9px 11px;border:1px solid var(--line-strong);
+    border-radius:10px;background:var(--surface-2);color:var(--ink)}
+  .field input:focus,.field select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .chk{display:flex;align-items:center;gap:7px;font-size:.85rem;color:var(--ink-soft)}
+  .addbtn{appearance:none;border:none;background:var(--accent);color:#fff;font-family:inherit;font-weight:700;
+    font-size:.9rem;padding:10px 18px;border-radius:10px;cursor:pointer;margin-top:6px}
+  .addbtn:hover{background:var(--accent-deep)}
+
+  .catgroup{margin-top:18px}
+  .catgroup h4{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:700;
+    margin:0 0 8px;display:flex;align-items:center;gap:10px}
+  .catgroup h4::after{content:"";flex:1;height:1px;background:var(--line)}
+  .item{display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--line);
+    border-radius:12px;padding:8px 12px;margin-bottom:8px}
+  .item .pc-sw{width:30px;height:30px;border-radius:8px}
+  .item .nm{flex:1;font-size:.92rem;font-weight:600}
+  .item .badge{font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);
+    background:var(--surface-2);padding:2px 7px;border-radius:6px}
+  .item .del{appearance:none;border:none;background:transparent;color:var(--ink-faint);cursor:pointer;font-size:1.1rem;padding:2px 6px}
+  .item .del:hover{color:var(--accent)}
+
+  /* gaps */
+  .gap-group{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:24px 0 10px;display:flex;align-items:center;gap:10px}
+  .gap-group:first-child{margin-top:4px}
+  .gap-group::after{content:"";flex:1;height:1px;background:var(--line)}
+  .slot{display:flex;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--line);
+    border-radius:14px;padding:13px 15px;margin-bottom:10px}
+  .slot .mark{width:26px;height:26px;border-radius:999px;flex:none;display:grid;place-items:center;font-size:.9rem;font-weight:700}
+  .slot.have .mark{background:var(--good);color:#fff}
+  .slot.miss .mark{background:var(--surface-2);color:var(--ink-faint);border:1px solid var(--line-strong)}
+  .slot .s-body{flex:1}
+  .slot .s-label{font-weight:600;font-size:.94rem}
+  .slot .s-sug{font-size:.8rem;color:var(--ink-soft);margin-top:3px}
+  .slot.have .s-sug{color:var(--good)}
+
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);
+    color:var(--paper);padding:11px 18px;border-radius:999px;font-size:.84rem;font-weight:600;box-shadow:var(--shadow-lift);
+    opacity:0;pointer-events:none;transition:.2s;z-index:80}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .count{font-size:.8rem;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="topbar">
+  <div class="brandmark"><b>Outfit Studio</b><span>Soft Autumn</span></div>
+  <button class="iconbtn" id="themeBtn" aria-label="Toggle theme" title="Light / dark">◐</button>
+</div>
+
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Get dressed in 10 seconds</p>
+    <h1>What should I <em>wear?</em></h1>
+    <p class="sub">Your closet, in your colours. Tap one button and get a complete, palette-correct outfit — polished enough for the club, easy enough for class. Edit your closet so it only suggests what you actually own.</p>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-tab="gen">✨ Generate</button>
+    <button class="tab" data-tab="saved">♥ Saved</button>
+    <button class="tab" data-tab="closet">👚 My closet</button>
+    <button class="tab" data-tab="gaps">🛍️ Level up</button>
+  </div>
+
+  <!-- GENERATE -->
+  <section class="panel" id="panel-gen">
+    <div class="gen-controls">
+      <div class="seg" id="occSeg" role="group" aria-label="Occasion">
+        <button data-occ="any" class="on">Any</button>
+        <button data-occ="school">School</button>
+        <button data-occ="work">Work</button>
+      </div>
+    </div>
+    <button class="bigbtn" id="genBtn">✨ Make me an outfit</button>
+    <p style="font-size:.78rem;color:var(--ink-faint);margin:10px 0 0;line-height:1.5"><b>Work</b> = athletic wear & athleisure only (hides jeans, trousers, skirts, non-athletic tops & graphic tees), nudged toward a layer. <b>School</b> = everything. Either way it never mixes athletic fabric with denim/woven. Colour notes: <b>✔</b> off-palette safely covered · <b>⚠</b> off-palette near your face → anchor with a warm layer + gold.</p>
+    <div id="genOut" style="margin-top:18px"></div>
+  </section>
+
+  <!-- SAVED -->
+  <section class="panel" id="panel-saved" hidden>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px">
+      <h2 style="font-family:'Fraunces',serif;font-weight:500;margin:0;font-size:1.5rem">Saved outfits</h2>
+      <span class="count" id="savedCount"></span>
+    </div>
+    <div id="savedOut"></div>
+  </section>
+
+  <!-- CLOSET -->
+  <section class="panel" id="panel-closet" hidden>
+    <div class="additem">
+      <h3>Add a piece</h3>
+      <div class="frow">
+        <div class="field"><label>Type</label>
+          <select id="fCat">
+            <option value="bottom">Bottom</option><option value="top">Top</option>
+            <option value="layer">Layer</option><option value="shoes">Shoes</option>
+            <option value="accessory">Accessory</option>
+          </select>
+        </div>
+        <div class="field"><label>Colour</label><select id="fColor"></select></div>
+      </div>
+      <div class="frow" style="margin-top:10px">
+        <div class="field" style="flex:2"><label>Name (optional)</label><input id="fName" placeholder="e.g. Align legging, camel trousers"></div>
+        <div class="field"><label>Material</label>
+          <select id="fStyle">
+            <option value="any">Everyday (goes with both)</option>
+            <option value="athletic">Athletic (stretch/technical)</option>
+            <option value="casual">Casual (denim/woven)</option>
+          </select>
+        </div>
+      </div>
+      <label class="chk" style="margin-top:10px"><input type="checkbox" id="fElev"> Elevated / polished (reads dressier)</label>
+      <p style="font-size:.72rem;color:var(--ink-faint);margin:8px 0 0">Set material to <b>Athletic</b> for anything work-appropriate (activewear / athleisure). Casual & everyday pieces are treated as school-only.</p>
+      <button class="addbtn" id="addBtn">+ Add to closet</button>
+    </div>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px">
+      <span class="count" id="closetCount"></span>
+      <button class="oa" style="flex:none;padding:6px 12px;font-size:.78rem" id="resetBtn">Reset to starter capsule</button>
+    </div>
+    <div id="closetOut"></div>
+  </section>
+
+  <!-- GAPS -->
+  <section class="panel" id="panel-gaps" hidden>
+    <p class="sub" style="margin:0 0 16px">Your basics are covered — this is your <b>evolution list</b> toward polished, upscale-casual. <b>✓</b> = you've started it; <b>＋</b> = a piece to add, each chosen to make your look more elevated and intentional. Prioritise the <b>Accessories</b> and <b>Shoes</b> groups — they change an outfit faster than any top.</p>
+    <div id="gapsOut"></div>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+  /* ---------- palette ---------- */
+  const COLORS = {
+    "Warm Ivory":{hex:"#EFE3CE",type:"neutral"},
+    "Oat":{hex:"#DAC8A8",type:"neutral"},
+    "Camel":{hex:"#B98A5E",type:"neutral"},
+    "Warm Taupe":{hex:"#9C846A",type:"neutral"},
+    "Soft Stone":{hex:"#928C78",type:"neutral"},
+    "Cocoa":{hex:"#6E5442",type:"neutral"},
+    "Espresso":{hex:"#47372B",type:"neutral"},
+    "Terracotta":{hex:"#C06A45",type:"hero"},
+    "Sage":{hex:"#97A07C",type:"hero"},
+    "Muted Teal":{hex:"#4F817B",type:"hero"},
+    "Warm Rose":{hex:"#C68477",type:"hero"},
+    "Soft Gold":{hex:"#C9A14C",type:"hero"},
+    "Leopard":{hex:"#A6814E",type:"neutral"},
+    "Black":{hex:"#2A2622",type:"offneutral"},
+    "White":{hex:"#F3EFE7",type:"offneutral"},
+    "Cool Gray":{hex:"#9AA0A6",type:"offneutral"},
+    "Denim":{hex:"#6E86A8",type:"offneutral"},
+    "Navy":{hex:"#2C3550",type:"offneutral"},
+    "Bright Pink":{hex:"#C63A79",type:"offbright"},
+    "Blush":{hex:"#E7C4C4",type:"offbright"},
+    "Lavender":{hex:"#B9A7C9",type:"offbright"},
+    "Periwinkle":{hex:"#8C93C0",type:"offbright"},
+    "Plum":{hex:"#6E4A5A",type:"offbright"}
+  };
+  const CATS = {bottom:"Bottom",top:"Top",layer:"Layer",shoes:"Shoes",accessory:"Accessory"};
+
+  const STARTER = [
+    // ---- TOPS ----   style: athletic | casual | any ;  work: true = work+school, false = school only
+    {cat:"top",color:"Warm Ivory",name:"Cream ribbed tee",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Warm Ivory",name:"Butter halter tank",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Cool Gray",name:"Vuori Halo tie halter (grey heather)",elevated:true,style:"athletic",work:true},
+    {cat:"top",color:"Oat",name:"Oat tee",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Cocoa",name:"Brown cami",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Cocoa",name:"Espresso set tank",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Sage",name:"Olive ribbed tank",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Sage",name:"Olive tank",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Warm Rose",name:"Dusty-rose sports bra",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Black",name:"Black tee",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Black",name:"Black cami tank",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Black",name:"Black sports bra",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"White",name:"White ribbed tank",elevated:false,style:"any",work:true},
+    {cat:"top",color:"White",name:"White graphic tee",elevated:false,style:"casual",work:false},
+    {cat:"top",color:"Cool Gray",name:"Charcoal logo tee",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Cool Gray",name:"Gray cami tank",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Blush",name:"Light-pink oversized long-sleeve",elevated:false,style:"any",noLayerOver:true},
+    {cat:"top",color:"Blush",name:"Blush cami",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Black",name:"Black crop tee",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Black",name:"Black long-sleeve",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Black",name:"Black sleeveless top",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Black",name:"Black bandeau bra",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Black",name:"Black ribbed tee",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Black",name:"Black tank (white trim)",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Cocoa",name:"Brown cami #2",elevated:false,style:"any",work:true},
+    {cat:"top",color:"Cool Gray",name:"Gray sports bra",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Cool Gray",name:"Gray ribbed bra",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"White",name:"White sports bra",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Sage",name:"Pine sports bra (set)",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Camel",name:"Caramel sports bra (set)",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Plum",name:"Plum sports bra (set)",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Periwinkle",name:"Periwinkle sports bra (set)",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Navy",name:"Navy sports bra (set)",elevated:false,style:"athletic",work:true},
+    // ---- LAYERS ----
+    {cat:"layer",color:"Cocoa",name:"Brown leather moto jacket",elevated:true,style:"casual",work:true},
+    {cat:"layer",color:"Espresso",name:"Espresso zip jacket",elevated:true,style:"athletic",work:true},
+    {cat:"layer",color:"Cool Gray",name:"Vuori Halo zip jacket (grey heather)",elevated:true,style:"athletic",work:true},
+    {cat:"layer",color:"Cocoa",name:"Mauve-brown zip jacket",elevated:false,style:"athletic",work:true},
+    {cat:"layer",color:"Black",name:"Black zip jacket",elevated:false,style:"athletic",work:true},
+    {cat:"layer",color:"Bright Pink",name:"Hot-pink zip hoodie",elevated:false,style:"athletic",work:true},
+    {cat:"layer",color:"Bright Pink",name:"Pink zip long-sleeve",elevated:false,style:"athletic",work:true},
+    {cat:"layer",color:"Black",name:"Black shrug / bolero",elevated:false,style:"athletic",work:true},
+    // ---- BOTTOMS ----
+    {cat:"bottom",color:"Camel",name:"Camel trousers",elevated:true,style:"casual",work:true},
+    {cat:"bottom",color:"Camel",name:"Camel midi skirt",elevated:true,style:"casual",work:true},
+    {cat:"bottom",color:"Cool Gray",name:"Vuori Halo wide-leg (grey heather)",elevated:true,style:"athletic",work:true},
+    {cat:"bottom",color:"Leopard",name:"Leopard flare pants",elevated:true,style:"casual",work:false},
+    {cat:"bottom",color:"Black",name:"Black wide-leg tie pants",elevated:true,style:"casual",work:true},
+    {cat:"bottom",color:"Black",name:"Black skinny jeans",elevated:false,style:"casual",work:false},
+    {cat:"bottom",color:"Denim",name:"Blue jeans",elevated:false,style:"casual",work:false},
+    {cat:"bottom",color:"Cool Gray",name:"Gray jeans",elevated:false,style:"casual",work:false},
+    {cat:"bottom",color:"Sage",name:"Olive leggings",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Black",name:"Black leggings",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Black",name:"Black flare leggings",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Cool Gray",name:"Gray leggings",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Blush",name:"Blush wide-leg pants",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Sage",name:"Pine leggings (set)",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Camel",name:"Caramel leggings (set)",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Plum",name:"Plum leggings (set)",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Periwinkle",name:"Periwinkle leggings (set)",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Navy",name:"Navy leggings (set)",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Warm Rose",name:"Coral leggings",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Sage",name:"Olive shorts",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Leopard",name:"Leopard shorts",elevated:false,style:"casual",work:false},
+    {cat:"bottom",color:"Black",name:"Black shorts",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Black",name:"Black bike shorts",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Blush",name:"Blush shorts",elevated:false,style:"athletic",work:true},
+    {cat:"bottom",color:"Cocoa",name:"Espresso set shorts",elevated:false,style:"athletic",work:true},
+    // ---- SHOES ----
+    {cat:"shoes",color:"Camel",name:"Tan New Balance",elevated:false,style:"any",work:true},
+    {cat:"shoes",color:"White",name:"Cream chunky sneakers",elevated:false,style:"any",work:true},
+    {cat:"shoes",color:"Black",name:"Black & cream New Balance",elevated:false,style:"any",work:true},
+    // ---- ACCESSORIES ----
+    {cat:"accessory",color:"Soft Gold",name:"Gold hoops",elevated:false,style:"any",work:true}
+  ];
+
+  /* ---------- state ---------- */
+  const $=(s,r)=>(r||document).querySelector(s);
+  const uid=()=>Math.random().toString(36).slice(2,9);
+  let closet=load("os_closet")||STARTER.map(x=>Object.assign({id:uid()},x));
+  let saved=load("os_saved")||[];
+  let occ="any";
+
+  function load(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+  function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  function isHero(c){return COLORS[c]&&COLORS[c].type==="hero"}
+  function hex(c){return COLORS[c]?COLORS[c].hex:"#ccc"}
+
+  let toastT;
+  function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),1600)}
+
+  /* ---------- generation ---------- */
+  function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+  function byCat(c){return closet.filter(i=>i.cat===c)}
+
+  function typeOf(c){return COLORS[c]?COLORS[c].type:"neutral"}
+  function isLoud(c){const t=typeOf(c);return t==="hero"||t==="offbright"}
+  function isOff(c){const t=typeOf(c);return t==="offneutral"||t==="offbright"}
+
+  function colorOK(items){
+    const louds=items.filter(i=>i&&isLoud(i.color));
+    if(louds.length<=1) return true;
+    // more than one loud colour only works if they're the same (a tonal set)
+    return louds.every(h=>h.color===louds[0].color);
+  }
+
+  function itemStyle(i){return i&&i.style?i.style:"any"}
+  // Work = athletic wear & athleisure only (plus sneakers & jewellery). Everything else is school-only.
+  function workEligible(i){return itemStyle(i)==="athletic"||i.cat==="shoes"||i.cat==="accessory"}
+  function stylesOK(items){
+    const s=items.filter(Boolean).map(itemStyle).filter(x=>x!=="any");
+    return !(s.includes("athletic")&&s.includes("casual")); // don't put athletic pieces with jeans/woven
+  }
+
+  function generate(){
+    let bottoms=byCat("bottom"),tops=byCat("top"),shoes=byCat("shoes"),layers=byCat("layer"),accs=byCat("accessory");
+    if(occ==="work"){ // Work = only athletic / athleisure pieces (+ sneakers, jewellery)
+      bottoms=bottoms.filter(workEligible);tops=tops.filter(workEligible);
+      layers=layers.filter(workEligible);shoes=shoes.filter(workEligible);accs=accs.filter(workEligible);
+    }
+    if(!bottoms.length||!tops.length){
+      return {error: occ==="work"
+        ? "No athletic bottom + top yet — add athletic-material pieces (leggings, sports bra, etc.) in My Closet."
+        : "Add at least one bottom and one top in My Closet first."};
+    }
+    for(let tries=0;tries<140;tries++){
+      const b=pick(bottoms),t=pick(tops);
+      if(!stylesOK([b,t])) continue;            // e.g. no athletic top with jeans
+      let l=null;
+      const wantLayer = occ==="work" ? true : (occ==="school" ? Math.random()<0.4 : Math.random()<0.6);
+      if(wantLayer && layers.length){ const cand=pick(layers); if(stylesOK([b,t,cand])) l=cand; }
+      if(t.noLayerOver) l=null; // oversized/bulky tops don't layer under a jacket
+      // Work: gym attire is fine on its own; we just prefer a layer (wantLayer above) for polish — no hard requirement.
+      if(!colorOK([b,t,l])) continue;
+      const s=shoes.length?pick(shoes):null;
+      let a=null;
+      if(accs.length && (occ==="school"?Math.random()<0.4:Math.random()<0.75)) a=pick(accs);
+      return {items:[b,t,l,s,a].filter(Boolean),why:rationale(b,t,l)};
+    }
+    // relaxed fallback — still respect material coherence
+    for(let tries=0;tries<140;tries++){
+      const b=pick(bottoms),t=pick(tops);
+      if(stylesOK([b,t])&&colorOK([b,t])){
+        const s=shoes.length?pick(shoes):null;
+        return {items:[b,t,s].filter(Boolean),why:rationale(b,t,null)};
+      }
+    }
+    return {items:[bottoms[0],tops[0]].concat(shoes.length?[shoes[0]]:[]),why:"A simple pairing from your closet."};
+  }
+
+  function faceTip(l,t){
+    // an off-palette top hidden under an open palette layer = problem solved
+    if(l&&t&&isOff(t.color)&&!isOff(l.color))
+      return "✔ Your "+l.color+" layer frames your face, so the "+t.color+" underneath is a non-issue.";
+    const face=l||t; if(!face) return "";
+    const ty=typeOf(face.color);
+    if(ty==="offbright") return "⚠ "+face.color+" sits right at your face — best under an open camel or cocoa layer, and lift it with warm-gold jewellery + a warm lip.";
+    if(ty==="offneutral") return "· "+face.color+" isn't your most flattering near the face — a warm-gold necklace and warm makeup keep it from washing you out.";
+    return "";
+  }
+
+  function rationale(b,t,l){
+    const core=[b,t,l].filter(Boolean);
+    const louds=core.filter(i=>isLoud(i.color));
+    let base;
+    if(louds.length===0) base="All-neutral tonal — quiet and put-together.";
+    else if(louds.length===1) base=louds[0].color+" as your single pop — nicely balanced.";
+    else base="Tonal "+louds[0].color+" — one colour throughout looks intentional.";
+    if((l&&l.elevated)||b.elevated) base+=" Polished enough for the club.";
+    const tip=faceTip(l,t);
+    return base+(tip?" "+tip:"");
+  }
+
+  function outfitCard(o,opts){
+    opts=opts||{};
+    const div=document.createElement("div");div.className="outfit";
+    let rows="";
+    o.items.forEach(i=>{
+      rows+=`<div class="piece-row"><span class="pc-sw" style="background:${hex(i.color)}"></span>`+
+        `<span class="pc-meta"><span class="pc-cat">${CATS[i.cat]}</span>`+
+        `<span class="pc-name">${i.name||i.color+" "+CATS[i.cat].toLowerCase()}</span>`+
+        `<span class="pc-color">${i.color}</span></span></div>`;
+    });
+    let actions="";
+    if(opts.saved){
+      actions=`<div class="outfit-actions"><button class="oa" data-del="${o.id}">Remove</button></div>`;
+    }else{
+      actions=`<div class="outfit-actions"><button class="oa primary" id="saveBtn">♥ Save</button><button class="oa" id="againBtn">↻ Shuffle again</button></div>`;
+    }
+    div.innerHTML=`<p class="why">${o.why}</p>${rows}${actions}`;
+    return div;
+  }
+
+  let current=null;
+  function renderGen(){
+    const host=$("#genOut");host.innerHTML="";
+    if(!current){host.innerHTML='<div class="empty">Tap “Make me an outfit” for your first look.</div>';return}
+    if(current.error){host.innerHTML='<div class="empty">'+current.error+'</div>';return}
+    const card=outfitCard(current);
+    host.appendChild(card);
+    $("#saveBtn").onclick=()=>{
+      saved.unshift({id:uid(),items:current.items,why:current.why});save("os_saved",saved);
+      renderSaved();toast("Saved to your favourites ♥");
+    };
+    $("#againBtn").onclick=()=>{current=generate();renderGen()};
+  }
+
+  function renderSaved(){
+    const host=$("#savedOut");host.innerHTML="";
+    $("#savedCount").textContent=saved.length+" saved";
+    if(!saved.length){host.innerHTML='<div class="empty">No saved outfits yet. Generate some and tap ♥ to keep the ones you love.</div>';return}
+    saved.forEach(o=>{
+      const c=outfitCard(o,{saved:true});host.appendChild(c);
+      $('[data-del="'+o.id+'"]',c).onclick=()=>{saved=saved.filter(x=>x.id!==o.id);save("os_saved",saved);renderSaved();toast("Removed")};
+    });
+  }
+
+  /* ---------- closet ---------- */
+  function renderColorOptions(){
+    const sel=$("#fColor");sel.innerHTML="";
+    const groups={"Your palette":[],"Off-palette (wear off the face)":[]};
+    Object.keys(COLORS).forEach(c=>{
+      const t=COLORS[c].type;
+      (t==="neutral"||t==="hero"?groups["Your palette"]:groups["Off-palette (wear off the face)"]).push(c);
+    });
+    Object.keys(groups).forEach(g=>{
+      const og=document.createElement("optgroup");og.label=g;
+      groups[g].forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c+(COLORS[c].type==="hero"?" (hero)":"");og.appendChild(o)});
+      sel.appendChild(og);
+    });
+  }
+  function renderCloset(){
+    const host=$("#closetOut");host.innerHTML="";
+    $("#closetCount").textContent=closet.length+" pieces";
+    Object.keys(CATS).forEach(cat=>{
+      const items=closet.filter(i=>i.cat===cat);
+      if(!items.length)return;
+      const g=document.createElement("div");g.className="catgroup";
+      g.innerHTML=`<h4>${CATS[cat]}s</h4>`;
+      items.forEach(i=>{
+        const row=document.createElement("div");row.className="item";
+        row.innerHTML=`<span class="pc-sw" style="background:${hex(i.color)}"></span>`+
+          `<span class="nm">${i.name||i.color}</span>`+
+          `<span class="badge" style="background:transparent;border:1px solid var(--line);color:var(--ink-faint)">${workEligible(i)?'work ok':'school only'} · ${itemStyle(i)}</span>`+
+          (i.elevated?'<span class="badge">elevated</span>':'')+
+          `<span class="pc-color" style="font-size:.76rem;color:var(--ink-soft)">${i.color}</span>`+
+          `<button class="del" aria-label="Delete" data-del="${i.id}">✕</button>`;
+        g.appendChild(row);
+        $('[data-del="'+i.id+'"]',row).onclick=()=>{closet=closet.filter(x=>x.id!==i.id);save("os_closet",closet);renderCloset();renderGaps()};
+      });
+      host.appendChild(g);
+    });
+    if(!closet.length)host.innerHTML='<div class="empty">Your closet is empty. Add pieces above, or reset to the starter capsule.</div>';
+  }
+
+  /* ---------- gaps ---------- */
+  const GAPS=[
+    {group:"Elevated staples — quiet upgrades", items:[
+      {label:"Smoothing bodysuit",sug:"A seamless bodysuit (Skims Fits Everybody, Aritzia Contour) tucks perfectly into trousers or leggings — no bunching, instant polish. ≈$40–68"},
+      {label:"Longline duster or trench",sug:"A camel/cocoa duster thrown open over a set turns gym-to-lunch into elegant (Quince, Mango, Aritzia). ≈$90–160"},
+      {label:"Fine-knit or cashmere crew",sug:"Oat/camel merino or cashmere (Quince cashmere ≈$50, Everlane). Dresses jeans up and warms leggings. ≈$50–120"},
+      {label:"Drapey elevated trouser",test:i=>i.cat==="bottom"&&/trouser/i.test(i.name||""),own:"you've got your camel pair — a cocoa or olive drapey trouser (Aritzia Effortless) would extend it.",sug:"A soft tailored trouser in cocoa/olive reads dressier than leggings but just as comfy (Aritzia, Abercrombie Sloane). ≈$70–128"},
+      {label:"Satin slip midi skirt",sug:"A bias slip in bronze/olive (Aritzia, Reformation). Sneakers + slip skirt is *the* trendy high-low look. ≈$60–120"},
+      {label:"Crisp oversized poplin shirt",sug:"White/ecru — open over a tank, or buttoned with trousers. Endlessly restyleable. ≈$40–80"}
+    ]},
+    {group:"Accessories — your biggest level-up", items:[
+      {label:"Structured leather tote",sug:"Cognac/camel tote (Madewell Transport ≈$168, Cuyana, or Polène to splurge). One good bag lifts an outfit more than any top."},
+      {label:"Layered gold necklaces + a cuff",sug:"2–3 delicate warm-gold layers + one chunky cuff (Mejuri, Gorjana, or Amazon ≈$20). The fastest 'expensive' upgrade for your gold-toned skin."},
+      {label:"Elevated leather crossbody / belt bag",sug:"Cognac leather (Béis, Cuyana ≈$60–150) — hands-free but polished for campus and the club."},
+      {label:"Warm tortoise sunglasses",sug:"Amber/tortoise frames flatter Soft Autumn far more than black. ≈$15 (Amazon) to $150."},
+      {label:"Neutral structured cap or claw clip",sug:"A camel/cream cap or tortoise claw clip finishes a casual look on purpose. ≈$15–40"},
+      {label:"Warm knit or silk scarf",sug:"Sage/rust at the neck adds a pop — and conveniently anchors any off-palette top near your face. ≈$20–60"}
+    ]},
+    {group:"Shoes beyond sneakers", items:[
+      {label:"Cognac loafers",sug:"Chunky loafers (Sam Edelman, Steve Madden ≈$60–130). Loafers + leggings or trousers instantly reads upscale."},
+      {label:"Ballet or mesh flats",sug:"The flat of the moment, in cream/tan/black (Everlane, Amazon ≈$30–120). Polished and comfy for class."},
+      {label:"Cognac Chelsea / ankle boots",sug:"Warm-brown boots for jeans and trousers in cooler months. ≈$60–150"},
+      {label:"Leather slides or mules",sug:"Tan/cognac for warm-weather polish and easy on/off at the club. ≈$30–90"}
+    ]},
+    {group:"Fun / trendy pieces", items:[
+      {label:"Faux-leather leggings or pants",sug:"Cocoa/espresso faux-leather (Spanx, Commando, Amazon ≈$30–98) — edgy but still soft and warm-toned."},
+      {label:"Rib-knit lounge set",sug:"A matching rib set in camel/rust — the dressier cousin of your athletic sets (Aritzia, Amazon ≈$40–90)."},
+      {label:"Sweater vest or knit tank",sug:"Layer over a poplin shirt or tee for texture and a styled look. ≈$30–70"},
+      {label:"Animal print (you've started!)",test:i=>i.color==="Leopard",own:"you've got leopard — lean in with a leopard flat or scarf to carry it through an outfit.",sug:"A leopard flat, belt, or scarf — a Soft Autumn neutral that instantly looks styled."},
+      {label:"A tonal hero-colour set",test:i=>i.cat==="bottom"&&isHero(i.color),own:"nailed it — your sage/plum/etc. sets already do this.",sug:"A head-to-toe set in terracotta or sage always looks intentional."}
+    ]}
+  ];
+  function renderGaps(){
+    const host=$("#gapsOut");host.innerHTML="";
+    GAPS.forEach(g=>{
+      const h=document.createElement("div");h.className="gap-group";h.textContent=g.group;host.appendChild(h);
+      g.items.forEach(s=>{
+        const have=s.test?closet.some(s.test):false;
+        const d=document.createElement("div");d.className="slot "+(have?"have":"miss");
+        d.innerHTML=`<span class="mark">${have?"✓":"＋"}</span><div class="s-body"><div class="s-label">${s.label}</div>`+
+          `<div class="s-sug">${have?("Got it — "+(s.own||"nice one.")):s.sug}</div></div>`;
+        host.appendChild(d);
+      });
+    });
+  }
+
+  /* ---------- tabs ---------- */
+  document.querySelectorAll(".tab").forEach(t=>{
+    t.onclick=()=>{
+      document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+      t.classList.add("active");
+      ["gen","saved","closet","gaps"].forEach(p=>{$("#panel-"+p).hidden=(p!==t.dataset.tab)});
+    };
+  });
+  $("#occSeg").querySelectorAll("button").forEach(b=>{
+    b.onclick=()=>{$("#occSeg").querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");occ=b.dataset.occ};
+  });
+  $("#genBtn").onclick=()=>{current=generate();renderGen()};
+  $("#addBtn").onclick=()=>{
+    const item={id:uid(),cat:$("#fCat").value,color:$("#fColor").value,name:$("#fName").value.trim(),elevated:$("#fElev").checked,style:$("#fStyle").value};
+    closet.push(item);save("os_closet",closet);
+    $("#fName").value="";$("#fElev").checked=false;$("#fStyle").value="any";
+    renderCloset();renderGaps();toast("Added to closet");
+  };
+  $("#resetBtn").onclick=()=>{
+    if(confirm("Reset your closet to the starter capsule? This replaces your current list."))
+    {closet=STARTER.map(x=>Object.assign({id:uid()},x));save("os_closet",closet);renderCloset();renderGaps();toast("Reset to starter capsule")}
+  };
+  const themeBtn=$("#themeBtn");
+  (function(){try{const t=localStorage.getItem("os_theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}})();
+  themeBtn.onclick=()=>{
+    const cur=document.documentElement.getAttribute("data-theme");
+    const dark=cur==="dark"||(!cur&&matchMedia("(prefers-color-scheme:dark)").matches);
+    const next=dark?"light":"dark";document.documentElement.setAttribute("data-theme",next);
+    try{localStorage.setItem("os_theme",next)}catch(e){}
+  };
+
+  /* ---------- init ---------- */
+  renderColorOptions();renderCloset();renderSaved();renderGaps();renderGen();
+})();
+</script>
