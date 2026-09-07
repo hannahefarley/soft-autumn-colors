@@ -166,7 +166,7 @@
       </div>
     </div>
     <button class="bigbtn" id="genBtn">✨ Make me an outfit</button>
-    <p style="font-size:.78rem;color:var(--ink-faint);margin:10px 0 0;line-height:1.5"><b>Work</b> = athletic wear & athleisure only (hides jeans, trousers, skirts, non-athletic tops & graphic tees), nudged toward a layer. <b>School</b> = everything. Either way it never mixes athletic fabric with denim/woven. Colour notes: <b>✔</b> off-palette safely covered · <b>⚠</b> off-palette near your face → anchor with a warm layer + gold.</p>
+    <p style="font-size:.78rem;color:var(--ink-faint);margin:10px 0 0;line-height:1.5"><b>Work</b> = athletic wear & athleisure only (hides jeans, trousers, skirts, non-athletic tops & graphic tees), nudged toward a layer. <b>School</b> = everything. Either way it never mixes athletic fabric with denim/woven, and always adds a covering layer over a sports bra. Colour notes: <b>✔</b> off-palette safely covered · <b>⚠</b> off-palette near your face → anchor with a warm layer + gold.</p>
     <div id="genOut" style="margin-top:18px"></div>
   </section>
 
@@ -264,10 +264,10 @@
     {cat:"top",color:"Cocoa",name:"Espresso set tank",elevated:false,style:"athletic",work:true},
     {cat:"top",color:"Sage",name:"Olive ribbed tank",elevated:false,style:"any",work:true},
     {cat:"top",color:"Sage",name:"Olive tank",elevated:false,style:"any",work:true},
-    {cat:"top",color:"Warm Rose",name:"Dusty-rose sports bra",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Warm Rose",name:"Dusty-rose sports bra",elevated:false,style:"athletic",work:true,bare:true},
     {cat:"top",color:"Black",name:"Black tee",elevated:false,style:"any",work:true},
     {cat:"top",color:"Black",name:"Black cami tank",elevated:false,style:"any",work:true},
-    {cat:"top",color:"Black",name:"Black sports bra",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Black",name:"Black sports bra",elevated:false,style:"athletic",work:true,bare:true},
     {cat:"top",color:"White",name:"White ribbed tank",elevated:false,style:"any",work:true},
     {cat:"top",color:"White",name:"White graphic tee",elevated:false,style:"casual",work:false},
     {cat:"top",color:"Cool Gray",name:"Charcoal logo tee",elevated:false,style:"athletic",work:true},
@@ -277,27 +277,27 @@
     {cat:"top",color:"Black",name:"Black crop tee",elevated:false,style:"any",work:true},
     {cat:"top",color:"Black",name:"Black long-sleeve",elevated:false,style:"athletic",work:true},
     {cat:"top",color:"Black",name:"Black sleeveless top",elevated:false,style:"any",work:true},
-    {cat:"top",color:"Black",name:"Black bandeau bra",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Black",name:"Black bandeau bra",elevated:false,style:"athletic",work:true,bare:true},
     {cat:"top",color:"Black",name:"Black ribbed tee",elevated:false,style:"any",work:true},
     {cat:"top",color:"Black",name:"Black tank (white trim)",elevated:false,style:"athletic",work:true},
     {cat:"top",color:"Cocoa",name:"Brown cami #2",elevated:false,style:"any",work:true},
-    {cat:"top",color:"Cool Gray",name:"Gray sports bra",elevated:false,style:"athletic",work:true},
-    {cat:"top",color:"Cool Gray",name:"Gray ribbed bra",elevated:false,style:"athletic",work:true},
-    {cat:"top",color:"White",name:"White sports bra",elevated:false,style:"athletic",work:true},
-    {cat:"top",color:"Sage",name:"Pine sports bra (set)",elevated:false,style:"athletic",work:true},
-    {cat:"top",color:"Camel",name:"Caramel sports bra (set)",elevated:false,style:"athletic",work:true},
-    {cat:"top",color:"Plum",name:"Plum sports bra (set)",elevated:false,style:"athletic",work:true},
-    {cat:"top",color:"Periwinkle",name:"Periwinkle sports bra (set)",elevated:false,style:"athletic",work:true},
-    {cat:"top",color:"Navy",name:"Navy sports bra (set)",elevated:false,style:"athletic",work:true},
+    {cat:"top",color:"Cool Gray",name:"Gray sports bra",elevated:false,style:"athletic",work:true,bare:true},
+    {cat:"top",color:"Cool Gray",name:"Gray ribbed bra",elevated:false,style:"athletic",work:true,bare:true},
+    {cat:"top",color:"White",name:"White sports bra",elevated:false,style:"athletic",work:true,bare:true},
+    {cat:"top",color:"Sage",name:"Pine sports bra (set)",elevated:false,style:"athletic",work:true,bare:true},
+    {cat:"top",color:"Camel",name:"Caramel sports bra (set)",elevated:false,style:"athletic",work:true,bare:true},
+    {cat:"top",color:"Plum",name:"Plum sports bra (set)",elevated:false,style:"athletic",work:true,bare:true},
+    {cat:"top",color:"Periwinkle",name:"Periwinkle sports bra (set)",elevated:false,style:"athletic",work:true,bare:true},
+    {cat:"top",color:"Navy",name:"Navy sports bra (set)",elevated:false,style:"athletic",work:true,bare:true},
     // ---- LAYERS ----
-    {cat:"layer",color:"Cocoa",name:"Brown leather moto jacket",elevated:true,style:"casual",work:true},
-    {cat:"layer",color:"Espresso",name:"Espresso zip jacket",elevated:true,style:"athletic",work:true},
-    {cat:"layer",color:"Cool Gray",name:"Vuori Halo zip jacket (grey heather)",elevated:true,style:"athletic",work:true},
-    {cat:"layer",color:"Cocoa",name:"Mauve-brown zip jacket",elevated:false,style:"athletic",work:true},
-    {cat:"layer",color:"Black",name:"Black zip jacket",elevated:false,style:"athletic",work:true},
-    {cat:"layer",color:"Bright Pink",name:"Hot-pink zip hoodie",elevated:false,style:"athletic",work:true},
-    {cat:"layer",color:"Bright Pink",name:"Pink zip long-sleeve",elevated:false,style:"athletic",work:true},
-    {cat:"layer",color:"Black",name:"Black shrug / bolero",elevated:false,style:"athletic",work:true},
+    {cat:"layer",color:"Cocoa",name:"Brown leather moto jacket",elevated:true,style:"casual",work:true,covers:true},
+    {cat:"layer",color:"Espresso",name:"Espresso zip jacket",elevated:true,style:"athletic",work:true,covers:true},
+    {cat:"layer",color:"Cool Gray",name:"Vuori Halo zip jacket (grey heather)",elevated:true,style:"athletic",work:true,covers:true},
+    {cat:"layer",color:"Cocoa",name:"Mauve-brown zip jacket",elevated:false,style:"athletic",work:true,covers:true},
+    {cat:"layer",color:"Black",name:"Black zip jacket",elevated:false,style:"athletic",work:true,covers:true},
+    {cat:"layer",color:"Bright Pink",name:"Hot-pink zip hoodie",elevated:false,style:"athletic",work:true,covers:true},
+    {cat:"layer",color:"Bright Pink",name:"Pink zip long-sleeve",elevated:false,style:"athletic",work:true,covers:true},
+    {cat:"layer",color:"Black",name:"Black shrug / bolero",elevated:false,style:"athletic",work:true,covers:false},
     // ---- BOTTOMS ----
     {cat:"bottom",color:"Camel",name:"Camel trousers",elevated:true,style:"casual",work:true},
     {cat:"bottom",color:"Camel",name:"Camel midi skirt",elevated:true,style:"casual",work:true},
@@ -381,24 +381,28 @@
         ? "No athletic bottom + top yet — add athletic-material pieces (leggings, sports bra, etc.) in My Closet."
         : "Add at least one bottom and one top in My Closet first."};
     }
-    for(let tries=0;tries<140;tries++){
+    for(let tries=0;tries<160;tries++){
       const b=pick(bottoms),t=pick(tops);
       if(!stylesOK([b,t])) continue;            // e.g. no athletic top with jeans
+      const bare=!!t.bare;                        // sports-bra style needs a covering layer
       let l=null;
-      const wantLayer = occ==="work" ? true : (occ==="school" ? Math.random()<0.4 : Math.random()<0.6);
-      if(wantLayer && layers.length){ const cand=pick(layers); if(stylesOK([b,t,cand])) l=cand; }
+      const wantLayer = bare || (occ==="work" ? true : (occ==="school" ? Math.random()<0.4 : Math.random()<0.6));
+      if(wantLayer && layers.length){
+        const pool = bare ? layers.filter(x=>x.covers) : layers;   // bare tops must be covered
+        if(pool.length){ const cand=pick(pool); if(stylesOK([b,t,cand])) l=cand; }
+      }
       if(t.noLayerOver) l=null; // oversized/bulky tops don't layer under a jacket
-      // Work: gym attire is fine on its own; we just prefer a layer (wantLayer above) for polish — no hard requirement.
+      if(bare && !(l&&l.covers)) continue;         // never leave the midriff fully bare
       if(!colorOK([b,t,l])) continue;
       const s=shoes.length?pick(shoes):null;
       let a=null;
       if(accs.length && (occ==="school"?Math.random()<0.4:Math.random()<0.75)) a=pick(accs);
       return {items:[b,t,l,s,a].filter(Boolean),why:rationale(b,t,l)};
     }
-    // relaxed fallback — still respect material coherence
-    for(let tries=0;tries<140;tries++){
+    // relaxed fallback — still respect material coherence & coverage
+    for(let tries=0;tries<160;tries++){
       const b=pick(bottoms),t=pick(tops);
-      if(stylesOK([b,t])&&colorOK([b,t])){
+      if(!t.bare && stylesOK([b,t])&&colorOK([b,t])){
         const s=shoes.length?pick(shoes):null;
         return {items:[b,t,s].filter(Boolean),why:rationale(b,t,null)};
       }
@@ -519,7 +523,9 @@
       {label:"Fine-knit or cashmere crew",sug:"Oat/camel merino or cashmere (Quince cashmere ≈$50, Everlane). Dresses jeans up and warms leggings. ≈$50–120"},
       {label:"Drapey elevated trouser",test:i=>i.cat==="bottom"&&/trouser/i.test(i.name||""),own:"you've got your camel pair — a cocoa or olive drapey trouser (Aritzia Effortless) would extend it.",sug:"A soft tailored trouser in cocoa/olive reads dressier than leggings but just as comfy (Aritzia, Abercrombie Sloane). ≈$70–128"},
       {label:"Satin slip midi skirt",sug:"A bias slip in bronze/olive (Aritzia, Reformation). Sneakers + slip skirt is *the* trendy high-low look. ≈$60–120"},
-      {label:"Crisp oversized poplin shirt",sug:"White/ecru — open over a tank, or buttoned with trousers. Endlessly restyleable. ≈$40–80"}
+      {label:"Crisp oversized poplin shirt",sug:"White/ecru — open over a tank, or buttoned with trousers. Endlessly restyleable. ≈$40–80"},
+      {label:"Longline open cardigan or knit duster",sug:"Left open over a matching set, it covers your midsection and reads intentional (not gym) — the best alternative to a zip jacket (Quince, Aritzia, Amazon). ≈$40–90"},
+      {label:"Relaxed longline tee (to knot / half-tuck)",sug:"Swap the matching bra for an oversized cotton tee half-tucked over your set leggings — covers the tummy, looks effortlessly cool. ≈$20–40"}
     ]},
     {group:"Accessories — your biggest level-up", items:[
       {label:"Structured leather tote",sug:"Cognac/camel tote (Madewell Transport ≈$168, Cuyana, or Polène to splurge). One good bag lifts an outfit more than any top."},
